@@ -151,5 +151,11 @@ function! textobj#blockwise#mapexpr_i(textobj)
 endfunction
 
 
+function! textobj#blockwise#C_v_mapexpr(textobj, ...)
+	let default = get(a:, 1, a:textobj)
+	return mode() == "\<C-v>" ? textobj#blockwise#mapexpr_i(a:textobj)  : defualt
+endfunction
+
+
 let &cpo = s:save_cpo
 unlet s:save_cpo
