@@ -83,7 +83,6 @@ endfunction
 
 function! s:region(textobj)
 	return get(textobj#blockwise#region_from_textobj(a:textobj), 1, [])
-" 	return get(textobj#multitextobj#region_from_textobj(a:textobj), 1, [])
 endfunction
 
 
@@ -109,6 +108,7 @@ function! s:blockwise(textobj, key)
 \		   && region[0][1] == topleft[1]
 \		   && region[1][1] == bottomright[1]
 			let bottomright = region[1]
+			call cursor(line("."), pos[2])
 			execute "normal!" a:key
 			let region = s:region(textobj)
 			if empty(region) || region[0][0] == bottomright[0]
@@ -153,7 +153,7 @@ endfunction
 
 function! textobj#blockwise#C_v_mapexpr(textobj, ...)
 	let default = get(a:, 1, a:textobj)
-	return mode() == "\<C-v>" ? textobj#blockwise#mapexpr_i(a:textobj)  : defualt
+	return mode() == "\<C-v>" ? textobj#blockwise#mapexpr_i(a:textobj)  : default
 endfunction
 
 
