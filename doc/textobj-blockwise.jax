@@ -1,0 +1,86 @@
+*textobj-blockwise.txt*	矩形の範囲を対象とする textobj
+
+
+==============================================================================
+概要						*textobj-blockwise-introduction*
+
+矩形の範囲を対象とする為の textobj です。
+
+このプラグインを使用する場合は kana 氏が作成された |textobj-user| が必要になり
+ます。
+
+- kana/vim-textobj-user - https://github.com/kana/vim-textobj-user
+
+
+==============================================================================
+範囲例						*textobj-blockwise-example*
+	| : カーソル位置
+
+	" yIw で同じ幅で iw に該当する行までを矩形でヤンクする
+	" "homu\nmami\nmado" が矩形でヤンクされる
+	" Iw は iw を再マップした textobj になる
+	h|omu
+	mami
+	mado
+
+	" I( で括弧内を対象とする
+	" "  homu\nmami  \n mado " が矩形でヤンクされる
+	(  h|omu)
+	(mami  )
+	( mado )
+
+	" 同じ幅までを対象とする
+	" "  homu\nmami  " が矩形でヤンクされる
+	(  homu)
+	(mami  )
+	(mado)
+
+
+==============================================================================
+インターフェース				*textobj-blockwise-interface*
+
+------------------------------------------------------------------------------
+マッピング					*textobj-blockwise-mapping*
+
+	*Aw* *AW* *As* *Ap* *Ab* *AB* *At* *A<* *A>* *A[* *A]* *A(* *A)* *A{* *A}* *Aaquote* *A'* *A`*
+Aw AW As Ap Ab AB At A< A> A[ A] A( A) A{ A} A" A' A`
+	*Iw* *IW* *Is* *Ip* *Ib* *IB* *It* *I<* *I>* *I[* *I]* *I(* *I)* *I{* *I}* *Iaquote* *I'* *I`*
+Iw IW Is Ip Ib IB It I< I> I[ I] I( I) I{ I} I" I' I`
+	既存の |text-objects| を矩形選択する為のキーマッピングに置き換えた形にな
+	ります。
+	|<C-v>| 時にも使用する事ができます。
+Example: >
+	" カーソル位置から iw に該当しない行まで矩形選択でヤンクする
+	yIw
+<
+------------------------------------------------------------------------------
+関数						*textobj-blockwise-functions*
+
+textobj#blockwise#mapexpr({motion})		*textobj#blockwise#mapexpr()*
+	任意の {motion} を矩形選択する為の関数です。
+	|:map-<expr>| を使用してマッピングを行います。
+Example: >
+	" iw を下方に矩形選択する
+	omap <expr> <Leader>iw textobj#blockwise#mapexpr("iw")
+<
+	NOTE: この時に |onoremap| を使用してはいけない
+
+
+==============================================================================
+設定						*textobj-blockwise-setting*
+
+------------------------------------------------------------------------------
+textobj-blockwise の変数			*textobj-blockwise-variables*
+
+				*g:textobj_blockwise_enable_default_key_mapping*
+g:textobj_blockwise_enable_default_key_mapping
+	プラグインを読み込む前に 0 が設定されていればキーマッピングは定義され
+	ません。
+	その場合は自分でキーマッピングを行い使用する必要があります。
+Default: >
+	let g:textobj_blockwise_enable_default_key_mapping = 1
+<
+
+
+==============================================================================
+vim:tw=78:fo=tcq2mM:ts=8:ft=help:norl
