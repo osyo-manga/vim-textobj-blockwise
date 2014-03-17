@@ -26,8 +26,8 @@ if g:textobj_blockwise_enable_default_key_mapping
 	function! s:map(key)
 		call s:mapping("I" . a:key, "i" . a:key, "o")
 		call s:mapping("A" . a:key, "a" . a:key, "o")
-		call s:v_mapping("I" . a:key, "i" . a:key)
-		call s:v_mapping("A" . a:key, "a" . a:key)
+" 		call s:v_mapping("I" . a:key, "i" . a:key)
+" 		call s:v_mapping("A" . a:key, "a" . a:key)
 		call s:v_mapping("i" . a:key, "i" . a:key)
 		call s:v_mapping("a" . a:key, "a" . a:key)
 	endfunction
