@@ -129,7 +129,7 @@ endfunction
 
 
 let s:mappings = {}
-function! textobj#blockwise#mapexpr_i(textobj)
+function! textobj#blockwise#mapexpr(textobj)
 	let key = string(a:textobj)
 	if has_key(s:mappings, key)
 		return s:mappings[key]
@@ -153,7 +153,7 @@ endfunction
 
 function! textobj#blockwise#C_v_mapexpr(textobj, ...)
 	let default = get(a:, 1, a:textobj)
-	return mode() == "\<C-v>" ? textobj#blockwise#mapexpr_i(a:textobj)  : default
+	return mode() == "\<C-v>" ? textobj#blockwise#mapexpr(a:textobj)  : default
 endfunction
 
 
